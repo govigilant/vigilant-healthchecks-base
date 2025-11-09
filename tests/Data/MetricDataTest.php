@@ -6,7 +6,6 @@ use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Vigilant\HealthChecksBase\Data\MetricData;
-use Vigilant\HealthChecksBase\Enums\Status;
 
 class MetricDataTest extends TestCase
 {
@@ -16,7 +15,6 @@ class MetricDataTest extends TestCase
         $data = [
             'type' => 'cpu_usage',
             'key' => 'server-1',
-            'status' => Status::Healthy,
             'value' => 45.5,
             'unit' => 'percent',
         ];
@@ -33,7 +31,6 @@ class MetricDataTest extends TestCase
         $data = [
             'type' => 'memory',
             'key' => null,
-            'status' => Status::Warning,
             'value' => 80,
         ];
 
@@ -50,7 +47,6 @@ class MetricDataTest extends TestCase
 
         new MetricData([
             'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
         ]);
     }
@@ -63,30 +59,6 @@ class MetricDataTest extends TestCase
         new MetricData([
             'type' => 123,
             'key' => null,
-            'status' => Status::Healthy,
-            'value' => 100,
-        ]);
-    }
-
-    #[Test]
-    public function it_validates_required_status(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        new MetricData([
-            'type' => 'test', 'key' => null,
-            'value' => 100,
-        ]);
-    }
-
-    #[Test]
-    public function it_validates_status_is_enum(): void
-    {
-        $this->expectException(ValidationException::class);
-
-        new MetricData([
-            'type' => 'test', 'key' => null,
-            'status' => 'invalid',
             'value' => 100,
         ]);
     }
@@ -98,7 +70,6 @@ class MetricDataTest extends TestCase
 
         new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
         ]);
     }
 
@@ -109,7 +80,6 @@ class MetricDataTest extends TestCase
 
         new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => 'not numeric',
         ]);
     }
@@ -119,7 +89,6 @@ class MetricDataTest extends TestCase
     {
         $metric = new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
         ]);
 
@@ -131,7 +100,6 @@ class MetricDataTest extends TestCase
     {
         $metric = new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => 45.5,
         ]);
 
@@ -143,7 +111,6 @@ class MetricDataTest extends TestCase
     {
         $metric = new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => '100',
         ]);
 
@@ -155,7 +122,6 @@ class MetricDataTest extends TestCase
     {
         $data = [
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
         ];
 
@@ -171,7 +137,6 @@ class MetricDataTest extends TestCase
 
         new MetricData([
             'type' => 'test', 'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
             'unit' => 123,
         ]);
@@ -183,7 +148,6 @@ class MetricDataTest extends TestCase
         $data = [
             'type' => 'test',
             'key' => 'server-1',
-            'status' => Status::Healthy,
             'value' => 75,
             'unit' => 'mb',
         ];
@@ -199,12 +163,10 @@ class MetricDataTest extends TestCase
         $metric = new MetricData([
             'type' => 'test',
             'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
         ]);
 
         $this->assertTrue(isset($metric['type']));
-        $this->assertTrue(isset($metric['status']));
         $this->assertTrue(isset($metric['value']));
         $this->assertFalse(isset($metric['nonexistent']));
     }
@@ -215,13 +177,11 @@ class MetricDataTest extends TestCase
         $metric = new MetricData([
             'type' => 'test',
             'key' => 'instance-1',
-            'status' => Status::Healthy,
             'value' => 100,
         ]);
 
         $this->assertEquals('test', $metric['type']);
         $this->assertEquals('instance-1', $metric['key']);
-        $this->assertEquals(Status::Healthy, $metric['status']);
         $this->assertEquals(100, $metric['value']);
         $this->assertNull($metric['nonexistent']);
     }
@@ -232,7 +192,6 @@ class MetricDataTest extends TestCase
         $metric = new MetricData([
             'type' => 'test',
             'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
         ]);
 
@@ -247,7 +206,6 @@ class MetricDataTest extends TestCase
         $metric = new MetricData([
             'type' => 'test',
             'key' => null,
-            'status' => Status::Healthy,
             'value' => 100,
             'unit' => 'percent',
         ]);
@@ -255,34 +213,5 @@ class MetricDataTest extends TestCase
         unset($metric['unit']);
 
         $this->assertFalse(isset($metric['unit']));
-    }
-
-    #[Test]
-    public function it_works_with_all_status_types(): void
-    {
-        $healthyMetric = new MetricData([
-            'type' => 'test1',
-            'key' => null,
-            'status' => Status::Healthy,
-            'value' => 10,
-        ]);
-
-        $warningMetric = new MetricData([
-            'type' => 'test2',
-            'key' => null,
-            'status' => Status::Warning,
-            'value' => 50,
-        ]);
-
-        $unhealthyMetric = new MetricData([
-            'type' => 'test3',
-            'key' => null,
-            'status' => Status::Unhealthy,
-            'value' => 90,
-        ]);
-
-        $this->assertEquals(Status::Healthy, $healthyMetric['status']);
-        $this->assertEquals(Status::Warning, $warningMetric['status']);
-        $this->assertEquals(Status::Unhealthy, $unhealthyMetric['status']);
     }
 }

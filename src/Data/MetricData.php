@@ -2,9 +2,6 @@
 
 namespace Vigilant\HealthChecksBase\Data;
 
-use Illuminate\Validation\Rules\Enum;
-use Vigilant\HealthChecksBase\Enums\Status;
-
 class MetricData extends Data
 {
     protected function rules(): array
@@ -12,7 +9,6 @@ class MetricData extends Data
         return [
             'type' => ['required', 'string'],
             'key' => ['nullable', 'string'],
-            'status' => ['required', new Enum(Status::class)],
             'value' => ['required', 'numeric'],
             'unit' => ['nullable', 'string'],
         ];
