@@ -1,0 +1,52 @@
+{
+    "name": "govigilant/vigilant-healthchecks-base",
+    "description": "Base package for integrating healthchecks",
+    "keywords": [
+        "vigilant",
+        "php",
+        "healthchecks"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent Bean",
+            "email": "vincent@govigilant.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/validation": "^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vigilant\\HealthChecksBase\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vigilant\\HealthChecksBase\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "laravel/pint": "^1.25",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.4"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan",
+        "style": "pint --test",
+        "quality": [
+            "@test",
+            "@analyse",
+            "@style"
+        ],
+        "fix-style": "pint"
+    }
+}
