@@ -105,15 +105,14 @@ class MetricCheckTest extends TestCase
     }
 
     #[Test]
-    public function it_includes_type_and_key_in_measure(): void
+    public function it_includes_type_in_measure(): void
     {
-        $config = FakeMetricCheck::configure('redis', true)->key('port-6379');
-        $check = FakeMetricCheck::build($config);
+        $check = new FakeMetricCheck('redis', true);
 
         $metric = $check->measure();
 
         $this->assertEquals('redis', $metric['type']);
-        $this->assertEquals('port-6379', $metric['key']);
+        $this->assertNull($metric['key']);
     }
 
     #[Test]

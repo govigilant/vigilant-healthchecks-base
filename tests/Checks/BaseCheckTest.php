@@ -59,16 +59,6 @@ class BaseCheckTest extends TestCase
 
         $this->assertEquals(FakeCheck::class, $config->class);
         $this->assertEquals(['test-check', true], $config->arguments);
-        $this->assertNull($config->key);
-    }
-
-    #[Test]
-    public function it_configures_check_with_fluent_key(): void
-    {
-        $config = FakeCheck::configure('test-check', true)->key('custom-key');
-
-        $this->assertEquals(FakeCheck::class, $config->class);
-        $this->assertEquals('custom-key', $config->key);
     }
 
     #[Test]
@@ -93,14 +83,14 @@ class BaseCheckTest extends TestCase
     }
 
     #[Test]
-    public function it_builds_instance_with_configured_key(): void
+    public function it_builds_instance_from_config_without_key(): void
     {
-        $config = FakeCheck::configure('custom-type', false)->key('instance-key');
+        $config = FakeCheck::configure('custom-type', false);
         $check = FakeCheck::build($config);
 
         $this->assertInstanceOf(FakeCheck::class, $check);
         $this->assertEquals('custom-type', $check->type());
-        $this->assertEquals('instance-key', $check->key());
+        $this->assertNull($check->key());
         $this->assertFalse($check->available());
     }
 

@@ -95,14 +95,13 @@ class CheckTest extends TestCase
     }
 
     #[Test]
-    public function it_includes_type_and_key_in_result(): void
+    public function it_includes_type_in_result(): void
     {
-        $config = FakeCheck::configure('redis', true)->key('port-6379');
-        $check = FakeCheck::build($config);
+        $check = new FakeCheck('redis', true);
 
         $result = $check->run();
 
         $this->assertEquals('redis', $result['type']);
-        $this->assertEquals('port-6379', $result['key']);
+        $this->assertNull($result['key']);
     }
 }

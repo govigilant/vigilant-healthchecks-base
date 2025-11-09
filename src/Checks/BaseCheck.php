@@ -32,7 +32,6 @@ abstract class BaseCheck
         return CheckConfigData::make([
             'class' => static::class,
             'arguments' => array_values($arguments),
-            'key' => null,
         ]);
     }
 
@@ -41,7 +40,6 @@ abstract class BaseCheck
         return CheckConfigData::make([
             'class' => static::class,
             'arguments' => [],
-            'key' => null,
         ]);
     }
 
@@ -52,10 +50,6 @@ abstract class BaseCheck
     {
         /** @var static */
         $instance = new ($config->class)(...$config->arguments);
-
-        if ($config->key !== null) {
-            $instance->key = $config->key;
-        }
 
         return $instance;
     }
