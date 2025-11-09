@@ -2,12 +2,12 @@
 
 namespace Vigilant\HealthChecksBase\Tests\Fakes;
 
-use Vigilant\HealthChecksBase\Checks\MetricCheck;
+use Vigilant\HealthChecksBase\Checks\Metric;
 use Vigilant\HealthChecksBase\Data\MetricData;
 use Vigilant\HealthChecksBase\Data\ResultData;
 use Vigilant\HealthChecksBase\Enums\Status;
 
-class FakeMetricCheck extends MetricCheck
+class FakeMetricCheck extends Metric
 {
     public function __construct(
         protected string $checkType = 'fake-metric-check',

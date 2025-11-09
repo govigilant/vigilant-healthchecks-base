@@ -3,8 +3,7 @@
 namespace Vigilant\HealthChecksBase;
 
 use Vigilant\HealthChecksBase\Checks\Check;
-use Vigilant\HealthChecksBase\Checks\MetricCheck;
-use Vigilant\HealthChecksBase\Data\CheckConfigData;
+use Vigilant\HealthChecksBase\Checks\Metric;
 
 class BuildResponse
 {
@@ -12,9 +11,9 @@ class BuildResponse
         array $checks,
         array $metricChecks
     ): array {
-        /** @var array<int, CheckConfigData> $checks */
+        /** @var array<int, Check> $checks */
         $checkResults = [];
-        /** @var array<int, CheckConfigData> $metricChecks */
+        /** @var array<int, Metric> $metricChecks */
         $metricResults = [];
 
         foreach ($checks as $check) {
@@ -28,7 +27,7 @@ class BuildResponse
         foreach ($metricChecks as $metricCheck) {
             $instance = $metricCheck->build();
 
-            if ($instance->available() && $instance instanceof MetricCheck) {
+            if ($instance->available() && $instance instanceof Metric) {
                 $metricResults[] = $instance->measure()->toArray();
             }
         }
