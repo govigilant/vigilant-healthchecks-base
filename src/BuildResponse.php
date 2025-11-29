@@ -15,13 +15,13 @@ class BuildResponse
         $metricResults = [];
 
         foreach ($checks as $check) {
-            if ($check instanceof Check && ($check->forceAvailable() || $check->available())) {
+            if ($check instanceof Check && $check->isAvailable()) {
                 $checkResults[] = $check->run()->toArray();
             }
         }
 
         foreach ($metrics as $metric) {
-            if ($metric instanceof Metric && ($metric->forceAvailable() || $metric->available())) {
+            if ($metric instanceof Metric && $metric->isAvailable()) {
                 $metricResults[] = $metric->measure()->toArray();
             }
         }

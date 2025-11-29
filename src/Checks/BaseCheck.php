@@ -14,9 +14,20 @@ abstract class BaseCheck
 
     abstract public function available(): bool;
 
-    final public function forceAvailable(): bool
+    public function alwaysRun(bool $available = true): static
     {
-        return $this->forceAvailable;
+        $this->forceAvailable = $available;
+
+        return $this;
+    }
+
+    final public function isAvailable(): bool
+    {
+        if ($this->forceAvailable) {
+            return true;
+        }
+
+        return $this->available();
     }
 
     public function type(): string
