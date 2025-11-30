@@ -52,14 +52,12 @@ class CpuLoadMetric extends Metric
 
             return MetricData::make([
                 'type' => $this->type(),
-                'key' => $this->key(),
                 'value' => round($percentage, 2),
                 'unit' => '%',
             ]);
         } catch (Throwable) {
             return MetricData::make([
                 'type' => $this->type(),
-                'key' => $this->key(),
                 'value' => 0,
                 'unit' => '%',
             ]);

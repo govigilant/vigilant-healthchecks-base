@@ -51,7 +51,6 @@ class DiskUsageMetric extends Metric
             if ($total === false || $free === false) {
                 return MetricData::make([
                     'type' => $this->type(),
-                    'key' => $this->key(),
                     'value' => 0,
                     'unit' => '%',
                 ]);
@@ -62,7 +61,6 @@ class DiskUsageMetric extends Metric
 
             return MetricData::make([
                 'type' => $this->type(),
-                'key' => $this->key(),
                 'value' => round($percentage, 2),
                 'unit' => '%',
             ]);
