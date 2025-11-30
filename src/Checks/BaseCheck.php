@@ -4,6 +4,7 @@ namespace Vigilant\HealthChecksBase\Checks;
 
 use RuntimeException;
 
+/** @phpstan-consistent-constructor */
 abstract class BaseCheck
 {
     protected string $type = '';
@@ -33,7 +34,7 @@ abstract class BaseCheck
     public function type(): string
     {
         if (empty($this->type)) {
-            throw new RuntimeException('Check type is not set on ' . static::class);
+            throw new RuntimeException('Check type is not set on '.static::class);
         }
 
         return $this->type;
@@ -42,5 +43,10 @@ abstract class BaseCheck
     public function key(): ?string
     {
         return $this->key;
+    }
+
+    public static function make(mixed ...$arguments): static
+    {
+        return new static(...$arguments);
     }
 }

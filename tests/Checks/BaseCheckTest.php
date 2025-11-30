@@ -12,7 +12,7 @@ class BaseCheckTest extends TestCase
     #[Test]
     public function it_returns_set_type(): void
     {
-        $check = new FakeCheck(checkType: 'test-check');
+        $check = FakeCheck::make(checkType: 'test-check');
 
         $this->assertEquals('test-check', $check->type());
     }
@@ -37,7 +37,7 @@ class BaseCheckTest extends TestCase
     #[Test]
     public function it_returns_null_when_key_is_not_set(): void
     {
-        $check = new FakeCheck;
+        $check = FakeCheck::make();
 
         $this->assertNull($check->key());
     }
@@ -45,8 +45,8 @@ class BaseCheckTest extends TestCase
     #[Test]
     public function it_returns_availability_status(): void
     {
-        $availableCheck = new FakeCheck(isAvailable: true);
-        $unavailableCheck = new FakeCheck(isAvailable: false);
+        $availableCheck = FakeCheck::make(isAvailable: true);
+        $unavailableCheck = FakeCheck::make(isAvailable: false);
 
         $this->assertTrue($availableCheck->available());
         $this->assertFalse($unavailableCheck->available());

@@ -13,7 +13,7 @@ class CheckTest extends TestCase
     #[Test]
     public function it_returns_result_data_from_run(): void
     {
-        $check = new FakeCheck;
+        $check = FakeCheck::make();
 
         $result = $check->run();
 
@@ -23,7 +23,7 @@ class CheckTest extends TestCase
     #[Test]
     public function it_returns_healthy_status_from_run(): void
     {
-        $check = new FakeCheck;
+        $check = FakeCheck::make();
 
         $result = $check->run();
 
@@ -44,7 +44,7 @@ class CheckTest extends TestCase
             'data' => ['warning' => 'high load'],
         ]);
 
-        $check = new FakeCheck(result: $resultData);
+        $check = FakeCheck::make(result: $resultData);
 
         $result = $check->run();
 
@@ -65,7 +65,7 @@ class CheckTest extends TestCase
             'data' => ['error' => 'connection refused'],
         ]);
 
-        $check = new FakeCheck(result: $resultData);
+        $check = FakeCheck::make(result: $resultData);
 
         $result = $check->run();
 
@@ -86,7 +86,7 @@ class CheckTest extends TestCase
             'data' => null,
         ]);
 
-        $check = new FakeCheck(result: $resultData);
+        $check = FakeCheck::make(result: $resultData);
 
         $result = $check->run();
 
@@ -97,7 +97,7 @@ class CheckTest extends TestCase
     #[Test]
     public function it_includes_type_in_result(): void
     {
-        $check = new FakeCheck('redis', true);
+        $check = FakeCheck::make('redis', true);
 
         $result = $check->run();
 
