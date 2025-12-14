@@ -2,11 +2,11 @@
 
 namespace Vigilant\HealthChecksBase\Tests\Data;
 
-use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Vigilant\HealthChecksBase\Data\ResultData;
 use Vigilant\HealthChecksBase\Enums\Status;
+use Vigilant\HealthChecksBase\Validation\ValidationException;
 
 class ResultDataTest extends TestCase
 {

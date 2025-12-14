@@ -3,9 +3,7 @@
 namespace Vigilant\HealthChecksBase\Data;
 
 use ArrayAccess;
-use Illuminate\Translation\ArrayLoader;
-use Illuminate\Translation\Translator;
-use Illuminate\Validation\Factory;
+use Vigilant\HealthChecksBase\Validation\Validator;
 
 /**
  * @implements ArrayAccess<string, mixed>
@@ -52,9 +50,7 @@ abstract class Data implements ArrayAccess
 
     public function validate(): void
     {
-        $validator = new Factory(new Translator(new ArrayLoader, 'en'));
-
-        $validator->make($this->data, $this->rules)->validate();
+        Validator::validate($this->data, $this->rules);
     }
 
     public static function make(array $data): static
