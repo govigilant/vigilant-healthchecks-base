@@ -64,6 +64,7 @@ final class Validator
 
             if ($rule instanceof PresenceRule) {
                 $presenceRules[] = $rule;
+
                 continue;
             }
 
@@ -74,7 +75,7 @@ final class Validator
     }
 
     /**
-     * @param PresenceRule[] $presenceRules
+     * @param  PresenceRule[]  $presenceRules
      */
     private static function allowsNull(array $presenceRules): bool
     {

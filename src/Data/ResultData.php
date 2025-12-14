@@ -11,7 +11,7 @@ class ResultData extends Data
         return [
             'type' => ['required', 'string'],
             'key' => ['nullable', 'string'],
-            'status' => ['required', 'enum:' . Status::class],
+            'status' => ['required', 'enum:'.Status::class],
             'message' => ['nullable', 'string'],
             'data' => ['nullable', 'array'],
         ];

@@ -9,8 +9,7 @@ final class MinRule implements Rule
     public function __construct(
         private readonly float $min,
         private readonly string $definition,
-    ) {
-    }
+    ) {}
 
     public function validate(string $attribute, mixed $value): void
     {

@@ -14,9 +14,9 @@ class ValidatorTest extends TestCase
     #[Test]
     public function it_passes_when_no_rules_are_defined(): void
     {
-        Validator::validate(['anything' => 'goes'], []);
+        $this->expectNotToPerformAssertions();
 
-        $this->assertTrue(true);
+        Validator::validate(['anything' => 'goes'], []);
     }
 
     #[Test]
@@ -31,9 +31,9 @@ class ValidatorTest extends TestCase
     #[Test]
     public function it_ignores_value_rules_when_attribute_is_absent(): void
     {
-        Validator::validate(['age' => 30], ['nickname' => ['string']]);
+        $this->expectNotToPerformAssertions();
 
-        $this->assertTrue(true);
+        Validator::validate(['age' => 30], ['nickname' => ['string']]);
     }
 
     #[Test]
@@ -48,9 +48,9 @@ class ValidatorTest extends TestCase
     #[Test]
     public function it_allows_null_values_when_nullable_rule_is_present(): void
     {
-        Validator::validate(['description' => null], ['description' => ['nullable', 'string']]);
+        $this->expectNotToPerformAssertions();
 
-        $this->assertTrue(true);
+        Validator::validate(['description' => null], ['description' => ['nullable', 'string']]);
     }
 
     #[Test]
@@ -101,17 +101,17 @@ class ValidatorTest extends TestCase
     #[Test]
     public function it_accepts_values_passing_min_rule(): void
     {
-        Validator::validate(['score' => 10], ['score' => ['min:5']]);
+        $this->expectNotToPerformAssertions();
 
-        $this->assertTrue(true);
+        Validator::validate(['score' => 10], ['score' => ['min:5']]);
     }
 
     #[Test]
     public function it_accepts_valid_enum_instances(): void
     {
-        Validator::validate(['status' => Status::Healthy], ['status' => ['enum:' . Status::class]]);
+        $this->expectNotToPerformAssertions();
 
-        $this->assertTrue(true);
+        Validator::validate(['status' => Status::Healthy], ['status' => ['enum:'.Status::class]]);
     }
 
     #[Test]
@@ -120,7 +120,7 @@ class ValidatorTest extends TestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('The status field failed the enum validation rule.');
 
-        Validator::validate(['status' => 'healthy'], ['status' => ['enum:' . Status::class]]);
+        Validator::validate(['status' => 'healthy'], ['status' => ['enum:'.Status::class]]);
     }
 
     #[Test]
@@ -129,7 +129,7 @@ class ValidatorTest extends TestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Invalid validation rule definition [stdClass].');
 
-        Validator::validate(['name' => 'John'], ['name' => ['required', new stdClass()]]);
+        Validator::validate(['name' => 'John'], ['name' => ['required', new stdClass]]);
     }
 
     #[Test]

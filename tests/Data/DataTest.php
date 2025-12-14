@@ -2,10 +2,10 @@
 
 namespace Vigilant\HealthChecksBase\Tests\Data;
 
-use Vigilant\HealthChecksBase\Validation\ValidationException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Vigilant\HealthChecksBase\Data\Data;
+use Vigilant\HealthChecksBase\Validation\ValidationException;
 
 class ConcreteData extends Data
 {

@@ -6,9 +6,7 @@ use Vigilant\HealthChecksBase\Validation\ValidationException;
 
 final class EnumRule implements Rule
 {
-    public function __construct(private readonly string $enumClass)
-    {
-    }
+    public function __construct(private readonly string $enumClass) {}
 
     public function validate(string $attribute, mixed $value): void
     {

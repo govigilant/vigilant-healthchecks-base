@@ -9,12 +9,12 @@ final class RuleFactory
     public static function make(string $attribute, string $definition): Rule|PresenceRule
     {
         return match (true) {
-            $definition === 'required' => new RequiredRule(),
-            $definition === 'nullable' => new NullableRule(),
-            $definition === 'string' => new StringRule(),
-            $definition === 'integer' => new IntegerRule(),
-            $definition === 'numeric' => new NumericRule(),
-            $definition === 'array' => new ArrayRule(),
+            $definition === 'required' => new RequiredRule,
+            $definition === 'nullable' => new NullableRule,
+            $definition === 'string' => new StringRule,
+            $definition === 'integer' => new IntegerRule,
+            $definition === 'numeric' => new NumericRule,
+            $definition === 'array' => new ArrayRule,
             str_starts_with($definition, 'min:') => self::minRule($definition),
             str_starts_with($definition, 'enum:') => self::enumRule($definition),
             default => throw ValidationException::unknownRule($attribute, $definition),
