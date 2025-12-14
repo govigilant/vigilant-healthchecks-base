@@ -2,7 +2,7 @@
 
 namespace Vigilant\HealthChecksBase\Tests\Data;
 
-use Illuminate\Validation\ValidationException;
+use Vigilant\HealthChecksBase\Validation\ValidationException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Vigilant\HealthChecksBase\Data\MetricData;

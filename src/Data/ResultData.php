@@ -2,7 +2,6 @@
 
 namespace Vigilant\HealthChecksBase\Data;
 
-use Illuminate\Validation\Rules\Enum;
 use Vigilant\HealthChecksBase\Enums\Status;
 
 class ResultData extends Data
@@ -12,7 +11,7 @@ class ResultData extends Data
         return [
             'type' => ['required', 'string'],
             'key' => ['nullable', 'string'],
-            'status' => ['required', new Enum(Status::class)],
+            'status' => ['required', 'enum:' . Status::class],
             'message' => ['nullable', 'string'],
             'data' => ['nullable', 'array'],
         ];
