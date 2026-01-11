@@ -65,6 +65,6 @@ class MemoryUsageMetric extends Metric
 
     public function available(): bool
     {
-        return file_exists('/proc/meminfo');
+        return file_exists('/proc/meminfo') && is_readable('/proc/meminfo');
     }
 }
