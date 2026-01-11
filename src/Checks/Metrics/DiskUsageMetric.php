@@ -76,13 +76,8 @@ class DiskUsageMetric extends Metric
 
     public function available(): bool
     {
-        if (! function_exists('disk_total_space') || ! function_exists('disk_free_space')) {
-            return false;
-        }
-
-        $total = @disk_total_space($this->path);
-        $free = @disk_free_space($this->path);
-
-        return $total !== false && $free !== false;
+        return function_exists('disk_total_space') 
+            && function_exists('disk_free_space') 
+            && file_exists($this->path);
     }
 }

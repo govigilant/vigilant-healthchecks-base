@@ -48,6 +48,15 @@ class CpuLoadMetric extends Metric
             }
 
             $cpuCount = $this->getCpuCount();
+            
+            if ($cpuCount === null) {
+                return MetricData::make([
+                    'type' => $this->type(),
+                    'value' => 0,
+                    'unit' => '%',
+                ]);
+            }
+            
             $percentage = ($load[0] / $cpuCount) * 100;
 
             return MetricData::make([
